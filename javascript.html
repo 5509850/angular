@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="bootstrap\js\bootstrap.min"/>
+  <title>Angular JS</title>
+  <script src="Angular\angular.min.js"></script>
+</head>
+<body ng-app>
+
+<input type="text" ng-model="name">
+Привет, {{name}}!
+
+<input type="checkbox" ng-model="ShowMyText">
+<div ng-show="ShowMyText">Текст, который появится сразу после того, как пользователь активирует checkbox.</div>
+</body>
+</html>
