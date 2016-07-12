@@ -13,5 +13,17 @@
 
 <input type="checkbox" ng-model="ShowMyText">
 <div ng-show="ShowMyText">Текст, который появится сразу после того, как пользователь активирует checkbox.</div>
+
+<form ng-submit="onLogin()" name="form" novalidate="" ng-controller="LoginCtrl">  
+    <fieldset>
+    <legend>Log In</legend>
+    <div class="form-field">
+         <input type="text" ng-model="vm.username" name="username" required="" ng-minlength="6">
+    <div class="form-field">
+         <input type="password" ng-model="vm.password" name="password" required="" ng-minlength="6" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}">
+    </div></div></fieldset>
+    <button type="submit">Log In</button>
+    <a href="/resources/public/new-user.html">New user?</a>
+ </form>
 </body>
 </html>
