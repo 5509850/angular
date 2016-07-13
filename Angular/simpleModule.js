@@ -8,6 +8,12 @@ $scope.add = function(a,b) {
 	else
 		$scope.result = a + b;
 };
+$scope.subtract = function (a, b) {
+    if (a == null || b == null)
+        $scope.result = 'error'
+    else
+        $scope.result = a - b;
+};
 $scope.multiple = function(a,b) {
 	if (a == null || b == null)
 		$scope.result = 'error'
