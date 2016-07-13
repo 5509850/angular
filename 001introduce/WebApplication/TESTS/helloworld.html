@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html ng-app="helloWorldApp">
+<head>
+    <title>Hello world</title>
+	<meta charset="utf-8" />
+<script src="../Libraries/angular.min.js"></script>
+<script>
+
+    var model = "Hello World";
+
+    var helloWorldApp = angular.module("helloWorldApp", []);
+
+    helloWorldApp.controller("HelloWorldCtrl", function ($scope) {
+        $scope.message = model;
+    });
+
+</script>
+
+</head>
+<body ng-controller="HelloWorldCtrl">
+    <h1>{{message}}</h1>  
+</body>
+</html>
