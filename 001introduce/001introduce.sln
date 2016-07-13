@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{81E5E7D9-DE2A-4538-9F3A-C3A238AFBB2B}"
+	ProjectSection(SolutionItems) = preProject
+		..\javascript.html = ..\javascript.html
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{CDEEE217-C96E-49D4-853C-8731BEBAC393}"
+	ProjectSection(SolutionItems) = preProject
+		..\Angular\angular.min.js = ..\Angular\angular.min.js
+		..\bootstrap\css\bootstrap-theme.css = ..\bootstrap\css\bootstrap-theme.css
+		..\bootstrap\css\bootstrap.css = ..\bootstrap\css\bootstrap.css
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tasks", "Tasks", "{2AE594FA-7FD3-40A6-9DEB-564903131489}"
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CDEEE217-C96E-49D4-853C-8731BEBAC393} = {81E5E7D9-DE2A-4538-9F3A-C3A238AFBB2B}
+		{2AE594FA-7FD3-40A6-9DEB-564903131489} = {81E5E7D9-DE2A-4538-9F3A-C3A238AFBB2B}
+	EndGlobalSection
+EndGlobal
