@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Tables and grids</title>
+    <meta charset="utf-8" />    
+    <link href="../css/bootstrap.css" rel="stylesheet" />
+    <link href="../css/bootstrap-theme.css" rel="stylesheet" />
+    
+    <style>
+        #gridContainer{
+            padding: 20px;
+        }
+        .grid-row > div {
+            border: 1px solid gray;
+            padding: 10px;
+            background-color: lightgreen;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container panel">
+        <div class="page-header">            
+                <h1 class="panel-heading">
+                    Стандартная таблица
+                </h1>                
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Column1</th>
+                        <th>Column2</th>
+                        <th>Column3</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="success">
+                        <td>Item 1</td>
+                        <td>Item 2</td>
+                        <td>Item 3</td>
+                    </tr>
+                    <tr class="danger">
+                        <td>Item 4</td>
+                        <td>Item 5</td>
+                        <td>Item 6</td>
+                    </tr>
+                    <tr class="warning">
+                        <td>Item 5</td>
+                        <td>Item 6</td>
+                        <td>Item 7</td>
+                    </tr>
+                    <tr class="well">
+                        <td>Item 8</td>
+                        <td>Item 9</td>
+                        <td>Item 10</td>
+                    </tr>
+                </tbody>
+            </table>
+                  
+            <h1 class="panel-heading">
+                table-hover
+            </h1>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Column1</th>
+                        <th>Column2</th>
+                        <th>Column3</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Item 1</td>
+                        <td>Item 2</td>
+                        <td>Item 3</td>
+                    </tr>
+                    <tr>
+                        <td>Item 4</td>
+                        <td>Item 5</td>
+                        <td>Item 6</td>
+                    </tr>
+                    <tr>
+                        <td>Item 5</td>
+                        <td>Item 6</td>
+                        <td>Item 7</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- row - класс опредеяет строку из 12 колонок   
+                             
+                col-sm ячейка горизонтально если размер экрана больше 768px
+                col-md ячейка горизонтально если размер экрана больше 940px
+                col-lg ячейка горизонтально если размер экрана больше 1170px
+                 --> 
+            <div id="gridContainer">
+                <div class="row grid-row">
+                    <div class="col-sm-1">1</div>
+                    <div class="col-sm-1">1</div>
+                    <div class="col-sm-2">2</div>
+                    <div class="col-sm-2">2</div>
+                    <div class="col-sm-6">6</div>
+                    <div class="col-sm-6">7</div>
+                </div>
+            </div>
+
+            <div id="gridContainer">
+                <div class="row grid-row">
+                    <div class="col-sm-3">3</div>
+                    <div class="col-sm-4">4</div>
+                    <div class="col-sm-5">5</div>                    
+                </div>
+            </div>
+
+            <div id="gridContainer">
+                <div class="row grid-row">
+                    <div class="col-sm-6">6</div>
+                    <div class="col-sm-6">6</div>                    
+                </div>
+            </div>
+         
+            </div>
+
+        </div>
+        
+    
+</body>
+</html>
