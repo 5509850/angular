@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html ng-app="SampleApp">
+<head>
+    <title>One way binding</title>
+	<meta charset="utf-8" />
+    <script src="../Libraries/angular.min.js"></script>
+    <script>
+        var app = angular.module("SampleApp", []);
+
+        app.controller("SampleAppCtrl", function ($scope)
+        {
+            $scope.items = [{ name: "Item 1", value: "Value 1" },
+                            { name: "Item 2", value: "Value 2" },
+                            { name: "Item 3", value: "Value 3" }
+                          ];
+        });
+    </script>
+</head>
+<body>
+    
+    <div style="text-align:center" ng-controller="SampleAppCtrl">
+        <!---{{}} - однонаправленная привязка данных-->
+        <div style="color:green; font-weight:bold">There are {{items.length}} items</div>
+        
+        <div>
+            <!-- ng.bind -->
+            There are <span style="color:red; font-weight:bold" ng-bind="items.length"></span> items
+        </div>
+
+        <div ng-bind-template="First item: {{items[0].name}}. Second item: {{items[1].name}}">
+        </div>
+
+        <div ng-non-bindable>
+            Angulars used {{and}} charset for template
+        </div>
+    </div>
+    
+</body>
+</html>

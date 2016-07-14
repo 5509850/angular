@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html ng-app="SimpleModule">
+<head>
+    <meta charset="UTF-8">
+    <!--<link rel="stylesheet" type="text/css" href="..\..\bootstrap\js\bootstrap.min.js" />-->
+    <title>Angular JS</title>
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <link href="css/bootstrap-theme.css" rel="stylesheet" />
+    <script src="Libraries\angular.min.js"></script>
+    <script src="Libraries\SimpleModule.js"></script>
+</head>
+<body ng-controller="MyController">
+    <div class="container panel">        
+        <h1 class="panel-heading">Демо {{title}}</h1>
+
+        <div>
+            <p>
+                <label for="valA">Ввведите А:</label>
+                <input type="number" id="valA" ng-model="valA" />
+            </p>
+            <p>
+                <label for="valB">Ввведите B:</label>
+                <input type="number" id="valB" ng-model="valB" />
+            </p>
+            <h2>Результат: <span style="font-style:oblique; color:green">{{result}}</span></h2>
+            <p>
+                <button class="btn btn-default" ng-click="add(valA,valB);">Сложить</button>
+                <button class="btn btn-default" ng-click="subtract(valA,valB);">Вычесть</button>
+                <button class="btn btn-default" ng-click="multiple(valA,valB);">Умножить</button>
+                <button class="btn btn-default" ng-click="devide(valA,valB);">Делить</button>
+            </p>
+        </div>
+
+
+        <a href="Lesson1/helloworld.html" id="link1">hello world*</a><br />
+        <a href="Lesson1/hw.html" id="link2">text input*</a><br />
+        <a href="Lesson1/Button.html" id="link3">Buttons</a><br />
+        <a href="Lesson1/forms.html" id="link3">Forms</a><br />
+        <a href="Lesson1/getinput.html" id="link4">Get Input*</a><br />
+        <a href="Lesson1/Tables.html" id="link5">Tables and grid</a><br />
+        <a href="Lesson1/planner_static.html" id="link6">Planner static</a><br />
+        <a href="Lesson1/plannet_dynamic.html" id="link7">Planner dynamic*</a><br />
+        <label class="label-info">* with AngularJS</label>
+        </div>
+
+        <!-- <input type="text" ng-model="name">
+        Привет, {{name}}!
+        <br/>
+         <input type="text" ng-model="myName" placeholder="Enter your name here">
+         <hr>
+         <h1>Hellow {{myName}}! </h1>
+
+        <input type="checkbox" ng-model="ShowMyText">
+        <div ng-show="ShowMyText">Текст, который появится сразу после того, как пользователь активирует checkbox.</div>
+
+        <form ng-submit="onLogin()" name="form" novalidate="" ng-controller="LoginCtrl">
+            <fieldset>
+            <legend>Log In</legend>
+            <div class="form-field">
+                 <input type="text" ng-model="vm.username" name="username" required="" ng-minlength="6">
+            <div class="form-field">
+                 <input type="password" ng-model="vm.password" name="password" required="" ng-minlength="6" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}">
+            </div></div></fieldset>
+            <button type="submit">Log In</button>
+            <a href="/resources/public/new-user.html">New user?</a>
+         </form> -->
+
+
+
+</body>
+</html>
