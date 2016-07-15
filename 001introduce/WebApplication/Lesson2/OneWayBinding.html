@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html ng-app="SampleApp">
+<html data-ng-app="SampleApp">
 <head>
     <title>One way binding</title>
 	<meta charset="utf-8" />
@@ -12,7 +12,8 @@
             $scope.items = [{ name: "Item 1", value: "Value 1" },
                             { name: "Item 2", value: "Value 2" },
                             { name: "Item 3", value: "Value 3" }
-                          ];
+            ];
+            $scope.i = 1;
         });
     </script>
 </head>
@@ -32,6 +33,17 @@
 
         <div ng-non-bindable>
             Angulars used {{and}} charset for template
+        </div>
+
+        <div>
+            <table align="center">
+                <tr><th>row number</th></tr>
+                <tr ng-repeat="i in [0, 1, 2, 3, 4, 5, 6, 7]"><td>{{i+1}}</td></tr>
+            </table>
+        </div>
+        <hr />
+        <div>
+            2 + {{i}} = {{i + 2}}
         </div>
     </div>
     
