@@ -125,6 +125,7 @@
     <Content Include="js\bootstrap.min.js" />
     <Content Include="js\jquery-3.1.0.min.js" />
     <Content Include="js\npm.js" />
+    <Content Include="Lesson2\directive_hide.html" />
     <Content Include="Lesson2\OneWayBinding.html" />
     <Content Include="Libraries\angular-mocks.js" />
     <Content Include="Libraries\angular.min.js" />

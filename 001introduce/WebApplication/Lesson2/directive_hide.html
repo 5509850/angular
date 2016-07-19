@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html data-ng-app="SampleApp">
+<head>
+    <title>NG-hide, show, if</title>
+    <meta charset="utf-8" />
+    
+    <script src="../Libraries/angular.min.js"></script>
+    <link href="../css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../css/bootstrap-theme.min.css" rel="stylesheet" />
+
+    <script>
+        var app = angular.module("SampleApp", []);
+
+        app.controller("SampleAppCtrl", function ($scope)
+        {
+            $scope.hideElem1 = false;
+            $scope.showElem2 = true;
+            $scope.removeElem3 = false;
+        });
+    </script>
+    <style>
+        div {
+            display: inline-block;
+            border: 1px solid gray;
+            border-radius: 3px;
+            margin: 14px;
+            padding: 30px;
+        }
+        #d1 {
+            background-color: lightgreen;
+        }
+        #d2 {
+            background-color: lightblue;
+        }
+        #d3 {
+            background-color: lightcoral;
+        }
+    </style>
+</head>
+<body ng-controller="SampleAppCtrl">
+
+    <div>
+        <input type="checkbox" ng-model="hideElem1" />Hide Elem 1<br />
+        <input type="checkbox" ng-model="showElem2" />Show Elem 2<br />
+        <input type="checkbox" ng-model="removeElem3" />Remove Elem 3<br />
+    </div>
+
+    <div>
+        <div id="d1" ng-hide="hideElem1">Elem 1</div>
+        <div id="d2" ng-show="showElem2">Elem 2</div>
+        <div id="d3" ng-if="removeElem3">Elem 3</div>
+    </div>
+</body>
+</html>

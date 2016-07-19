@@ -7,12 +7,12 @@
     <script>
 
         //Model
-    var model = "Hello World";
+        var model = "Hello World";        
 
     var helloWorldApp = angular.module("helloWorldApp", []);
         //Controller
     helloWorldApp.controller("HelloWorldCtrl", function ($scope) {        
-        $scope.message = model;
+        $scope.message = model;        
 
         //Behavior поведение
         $scope.clickHandler = function ()
@@ -27,6 +27,11 @@
 <body ng-controller="HelloWorldCtrl">
     
     <h1>{{message}}</h1>
+    <span ng-bind="message">ng-bind</span><br/>
+    <span ng:bind="message">ng-bind</span><br />
+    <span ng_bind="message">ng-bind</span><br />
+    <span data-ng-bind="message">ng-bind</span><br />
+    <span x-ng-bind="message">ng-bind</span><br />    
 
     <input ng-model="text"/>
     <button ng-click="clickHandler()">Обновить</button>
