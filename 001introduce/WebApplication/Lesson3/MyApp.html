@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html ng-app="myApp"> <!--=-->
+<head>
+    <title>My new Angular App</title>
+	<meta charset="utf-8" />
+
+    <script src="../Libraries/angular.min.js"></script>
+    <link href="../css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../css/bootstrap-theme.min.css" rel="stylesheet" />
+    <script>
+        var app = angular.module("myApp", []);
+        app.controller("myAppCtrl", function ($scope) {
+            //обработчик нажатия по кнопке
+            $scope.clickButton = function () {
+                $scope.greatingShow = !$scope.greatingShow
+                }            
+        })
+        app.directive("myDirective", []);
+    </script>
+</head>
+<body ng-controller="myAppCtrl">
+        
+    <div class="container">
+        <div class="col-md-6">
+            <input ng-model="name" /><button ng-click="clickButton()">Привет</button>
+            <br />
+            <div ng-show="greatingShow">
+                Привет  {{name}}!
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -127,6 +127,7 @@
     <Content Include="js\npm.js" />
     <Content Include="Lesson2\directive_hide.html" />
     <Content Include="Lesson2\OneWayBinding.html" />
+    <Content Include="Lesson3\MyApp.html" />
     <Content Include="Libraries\angular-mocks.js" />
     <Content Include="Libraries\angular.min.js" />
     <Content Include="Libraries\simpleModule.js" />
