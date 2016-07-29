@@ -1,12 +1,14 @@
 ﻿<!DOCTYPE html>
 <html ng-app="myApp"> <!--=-->
 <head>
-    <title>My new Angular App</title>
+    <title>My new Angular App menu</title>
 	<meta charset="utf-8" />
 
     <script src="../Libraries/angular.min.js"></script>
     <link href="../css/bootstrap.min.css" rel="stylesheet" />
     <link href="../css/bootstrap-theme.min.css" rel="stylesheet" />
+    <!---nemu-->
+    <link href="../css/MyStyleSheet.css" rel="stylesheet" />
     <script>
         var app = angular.module("myApp", []);
         app.controller("myAppCtrl", function ($scope) {
@@ -32,5 +34,19 @@
             </div>
         </div>
     </div>
+    <div id="main" ng-app>
+        <!-- Всем переменным классов в меню навигации будет присвоено значение "active". Функция $event.preventDefault() выводит страницу, которая была открыта по ссылке. -->
+        <nav class="{{active}}" ng-click="$event.preventDefault()">
+            <!-- Когда пункт меню открыт по ссылке, мы устанавливаем активные переменные -->
+            <a href="#" class="home" ng-click="active='home'">Home</a>
+            <a href="#" class="projects" ng-click="active='projects'">Projects</a>
+            <a href="#" class="services" ng-click="active='services'">Services</a>
+            <a href="#" class="contact" ng-click="active='contact'">Contact</a>
+        </nav>
+        <!-- ng-show выводит элемент, если значение переменной в кавычках соответствует истине. ng- hide – скрывает элемент, если наоборот. Так как изначально  активная переменная не установлена, то сперва на экране будет виден следующий текст -->
+        <p ng-hide="active">Please click a menu item</p>
+        <p ng-show="active">You chose <b>{{active}}</b></p>
+    </div>
+
 </body>
 </html>
