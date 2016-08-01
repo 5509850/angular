@@ -14,10 +14,13 @@
         app.controller("myAppCtrl", function ($scope) {
             //обработчик нажатия по кнопке
             $scope.clickButton = function () {
-                $scope.greatingShow = !$scope.greatingShow
+                $scope.greatingShow = !$scope.greatingShow             
                 }            
         })
         app.directive("myDirective", []);
+
+      
+
     </script>
 </head>
 <body ng-controller="myAppCtrl">
@@ -47,6 +50,7 @@
         <p ng-hide="active">Please click a menu item</p>
         <p ng-show="active">You chose <b>{{active}}</b></p>
     </div>
-
+   
+   
 </body>
 </html>
