@@ -144,6 +144,7 @@
   <ItemGroup>
     <Content Include="app\app.js" />
     <Content Include="css\MyStyleSheet.css" />
+    <Content Include="Lesson3\angl.js" />
     <Content Include="Lesson3\calculator.html" />
     <Content Include="Lesson3\calculator.js" />
     <Content Include="lesson4\first.html" />

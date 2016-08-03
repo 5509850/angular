@@ -23,9 +23,10 @@
 
         //Контоллер
 
-        courceListApp.controller("CourceListCtrl", function($scope) {
-            $scope.data = model;
+        courceListApp.controller("CourceListCtrl", CourceList);
 
+        function CourceList($scope) {
+            $scope.data = model;
             //обработчик нажатия по кнопке
             $scope.addNewCourse = function () {
                 $scope.data.courses.push({
@@ -33,17 +34,14 @@
                     passed: false
                 });
             }
-                $scope.courseName = "";
-
-                $scope.showText = function (passed) {
-                    return passed ? "Да" : "Нет";
-                }
-
-                $scope.setStyle = function (passed) {
-                    return passed ? "color:green" : "color:red; font-weight: bold";
-                }
-            
-        });
+            $scope.courseName = "";
+            $scope.showText = function (passed) {
+                return passed ? "Да" : "Нет";
+            }
+            $scope.setStyle = function (passed) {
+                return passed ? "color:green" : "color:red; font-weight: bold";
+            }            
+        }
 
     </script>
 </head>
@@ -96,4 +94,5 @@
         </div>
     </div>
 </body>
+
 </html>
