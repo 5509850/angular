@@ -34,7 +34,7 @@
     <div class="container">
         <div class="page-header">
             <h1>
-                Loan Calculator
+               Кредитный калькулятор
             </h1>
         </div>
         <div class="panel">
@@ -48,50 +48,43 @@
             -->
             <table>
                 <tr>
-                    <th>Enter Loan Data:</th>
+                    <th>Данные по кредиту:</th>
                     <td></td>
-                    <th>Loan Balance, Cumulative Equity, and Interest Payments</th>
+                    <th>Остаток по кредиту, Основной долг, платежи по процентам</th>
                 </tr>
                 <tr>
-                    <td>Amount of the loan ($):</td>
+                    <td>Сумма кредита ($):</td>
                     <td><input id="amount" onchange="calculate();"></td>
                     <td rowspan=8>
                         <canvas id="graph" width="400" height="250"></canvas>
                     </td>
                 </tr>
                 <tr>
-                    <td>Annual interest (%):</td>
+                    <td>Годовая ставка по кредиту (%):</td>
                     <td><input id="apr" onchange="calculate();"></td>
                 </tr>
                 <tr>
-                    <td>Repayment period (years):</td>
+                    <td>Срок кредита (лет):</td>
                     <td><input id="years" onchange="calculate();"></td>
                 <tr>
                     <td>Zipcode (to find lenders):</td>
                     <td><input id="zipcode" onchange="calculate();"></td>
                 <tr>
-                    <th>Approximate Payments:</th>
-                    <td><button onclick="calculate();">Calculate</button></td>
+                    <th>Платежи:</th>
+                    <td><button onclick="calculate();">Расчитать</button></td>
                 </tr>
                 <tr>
-                    <td>Monthly payment:</td>
+                    <td>Ежемесячные платежи:</td>
                     <td>$<span class="output" id="payment"></span></td>
                 </tr>
                 <tr>
-                    <td>Total payment:</td>
+                    <td>Итого платежей:</td>
                     <td>$<span class="output" id="total"></span></td>
                 </tr>
                 <tr>
-                    <td>Total interest:</td>
+                    <td>Итого проценты:</td>
                     <td>$<span class="output" id="totalinterest"></span></td>
-                </tr>
-                <tr>
-                    <th>Sponsors:</th>
-                    <td colspan=2>
-                        Apply for your loan with one of these fine lenders:
-                        <div id="lenders"></div>
-                    </td>
-                </tr>
+                </tr>              
             </table>
             <!-- The rest of this example is JavaScript code in the <script> tag below -->
             <!-- Normally, this script would go in the document <head> above but it -->
@@ -137,13 +130,13 @@
                     {{ item.name }} ({{item.id}})
                 </li>
             </ul>            
-            <p style="color:red" ng-if="main.show" ng-bind="main.deleted"></p>
-
-            <my-element>
-                Всем привет!
-            </my-element>
-
+            <p style="color:red" ng-if="main.show" ng-bind="main.deleted"></p>            
         </div>
-    </div>     
+        <div>      
+            <compose-email ng-model="composeEmail"></compose-email>
+        </div>
+            </div>
+
+    
 </body>
 </html>

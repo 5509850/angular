@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WebApplication
+namespace lenapw
 {
     public partial class Default : System.Web.UI.Page
     {
