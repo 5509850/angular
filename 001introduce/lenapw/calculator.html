@@ -1,79 +1,128 @@
 ﻿<!DOCTYPE html>
-<html ng-app="courceListApp">
+<html ng-app="App">
 <head>
     <title>Кредитный калькулятор</title>
-    <style>
-        /* This is a CSS style sheet: it adds style to the program output */
-        .output {
-            font-weight: bold;
-        }        
-        /* Calculated values in bold */
-        #payment {
-            text-decoration: underline;
-        }
-        /* For element with id="payment" */
-        #graph {
-            border: solid black 1px;
-        }
-        /* Chart has a simple border */
-        th, td {
-            vertical-align: top;
-        }
-        /* Don't center table cells */
-    </style>
+       
     <script src="js/angular.min.js"></script>
+    <link href="css/MyStyleSheet.css" rel="stylesheet" />
     <link href="css/bootstrap.css" rel="stylesheet" />
     <link href="css/bootstrap-theme.css" rel="stylesheet" />
+    <script src="js/calculator.js"></script>
     <script>
 
         //Модель
 
-        var model = {
-            user: "User 1",
-            payments: [{name: "HTML, CSS", passed: true},
-                { name: "JavaScript", passed: true },
-                { name: "AngularJS", passed: false }]
+        var model = {            
+            payments: [{ month: '0 месяц', amount: '$0', perc: '$0', main: '$0', pay: '$0', passed: false }]
         };
 
         //Модуль
 
-        var courceListApp = angular.module("courceListApp", []);
+        var myApp = angular.module("App", []);
 
-        //Контоллер
-
-        courceListApp.controller("CourceListCtrl", CourceList);
+        //Контоллер      
+        myApp.controller("CourceListCtrl", CourceList);
 
         function CourceList($scope) {
             $scope.data = model;
-            //обработчик нажатия по кнопке
-            $scope.calculateByMonth = function () {
+
+            $scope.payment = {
+                type: 'Annu'
+            };
+
+            $scope.amount = parseFloat(localStorage.loan_amount);
+            $scope.apr = parseFloat(localStorage.loan_apr);
+            $scope.years = parseFloat(localStorage.loan_years);
+            $scope.commis = parseFloat(localStorage.loan_commis);
+
+            ////обработчик нажатия по кнопке "Печать"          
+            //$scope.printDiv = function (divName) {
+            //    var printContents = document.getElementById(divName).innerHTML;
+            //    var popupWin = window.open('', '_blank', 'width=300,height=300');
+            //    popupWin.document.open();
+            //    popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="style.css" /></head><body onload="window.print()">' + printContents + '</body></html>');
+            //    popupWin.document.close();
+            //}
+            
+            //обработчик нажатия по кнопке "Расчитать"  
+            $scope.calculateByMonth = function () {              
+                
+                save($scope.amount, $scope.apr, $scope.years, $scope.commis);
+                $scope.commisShow = $scope.commis > 0;
                 $scope.data.payments.length = 0; // clear array
-                if ($scope.amount == null)
-                {
-                    $scope.amount = document.getElementById("amount").value;
-                }
-                if ($scope.apr == null)
-                {
-                    $scope.apr = document.getElementById("apr").value;
-                }
-                if ($scope.years == null)
-                {
-                    $scope.years = document.getElementById("years").value;
-                }               
+                
+                if ($scope.payment.type == 'Annu') { //Аннуитетные-------------------------      
+                        var interest = parseFloat($scope.apr / 100);                    
+                        var percTotal = 0;
+                        var mainTotal = 0;
+                        var monthlyTotal = 0;                        
 
-                var months = $scope.years * 12;
-                var allLoan = $scope.amount * $scope.years * (1 + ($scope.apr / 100));
-                var paymentInMonth = allLoan / months;
-                var loanRemain = allLoan;
+                        var amountRest = $scope.amount; //остаток основного долга
+                        var percent = parseFloat(amountRest * interest / 12);
+                        var monthly = ($scope.amount * (interest / 12)) / (1 - (1 / Math.pow(1 + (interest / 12), ($scope.years * 12))));
+                        var mainloan = monthly - percent;
 
-                for (i = 1; i < months + 1; i++) {                    
-                    loanRemain = loanRemain - (i * paymentInMonth);
+                    //0й месяц
+                        $scope.data.payments.push({
+                            month: '0-й месяц',
+                            amount: amountRest.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,'),
+                            perc: "-",
+                            main: "-",
+                            pay: "-",
+                            passed: false
+                        });
+                     
+                        for (i = 1; i < ($scope.years * 12) + 1; i++) {
+
+                            amountRest -= mainloan;
+
+                            $scope.data.payments.push({
+                                month: i + '-й месяц',
+                                amount: amountRest.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,'),
+                                perc: percent.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,'),
+                                main: mainloan.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,'),
+                                pay: monthly.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,'),
+                                passed: false
+                            });
+
+                            mainTotal += mainloan;
+                            percTotal += percent;
+                            monthlyTotal += monthly;
+
+                            percent = parseFloat(amountRest * interest / 12);                            
+                            mainloan = monthly - percent;
+                        }
+                    //Итого:
+                        $scope.data.payments.push({
+                            month: "ИТОГО:",
+                            amount: "0",
+                            perc: percTotal.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,'),
+                            main: mainTotal.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,'),
+                            pay: monthlyTotal.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,'),
+                            passed: true
+                        });
+                }
+                else { //Дифференцированные                    
+                    //0й месяц
                     $scope.data.payments.push({
-                        name: i + 'месяц. Платеж = ' + paymentInMonth.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') + ' оставшийся долг = ' + loanRemain.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,'),
+                        month: '0-й месяц',
+                        amount: amountRest.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,'),
+                        perc: "-",
+                        main: "-",
+                        pay: "-",
+                        passed: false
+                    });
+                    //0й месяц
+                    $scope.data.payments.push({
+                        month: '0-й месяц',
+                        amount: amountRest.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,'),
+                        perc: "-",
+                        main: "-",
+                        pay: "-",
                         passed: false
                     });
                 }
-                
+              
             }
             
             $scope.showText = function (passed) {
@@ -82,13 +131,27 @@
             $scope.setStyle = function (passed) {
                 return passed ? "color:green" : "color:red; font-weight: bold";
             }
-        }
+            $scope.newPaymentTypeValue = function (value) {                
+                $scope.log = value;
+            }
+
+
+
+        }      
 
     </script>
-
+    <script>
+        function save(amount, apr, years, commis) {
+            if (window.localStorage) {  // Only do this if the browser supports it
+                localStorage.loan_amount = amount;
+                localStorage.loan_apr = apr;
+                localStorage.loan_years = years;
+                localStorage.loan_commis = commis;
+            }
+        }
+    </script>
 </head>
-<body style="background:url(img/back.jpg)" ng-controller="CourceListCtrl">
-    <script src="js/calculator.js"></script>
+<body style="background:url(img/back.jpg)" ng-controller="CourceListCtrl">    
 
     <div class="container">
         <div class="page-header">
@@ -96,15 +159,7 @@
                 Кредитный калькулятор
             </h1>
         </div>
-        <div class="panel">
-            <!--
-              This is an HTML table with <input> elements that allow the user to enter data
-              and <span> elements in which the program can display its results.
-              These elements have ids like "interest" and "years". These ids are used
-              in the JavaScript code that follows the table. Note that some of the input
-              elements define "onchange" or "onclick" event handlers. These specify strings
-              of JavaScript code to be executed when the user enters data or clicks.
-            -->
+        <div class="panel">           
             <table  class="table table-hover">
                 <tr>
                     <th><h2>Данные по кредиту:</h2></th>
@@ -120,14 +175,36 @@
                 </tr>
                 <tr>
                     <td>Годовая ставка по кредиту (%):</td>
-                    <td><input type="number" id="apr" ng-model="apr" value="28" min="0" onchange="calculate();"></td>
+                    <td><input type="number" id="apr" ng-model="apr" min="0" value="10" onchange="calculate();"></td>
                 </tr>
                 <tr>
                     <td>Срок кредита (лет):</td>
-                    <td><input type="number" id="years" ng-model="years" value="3" onchange="calculate();" min="1"></td>               
+                    <td><input type="number" id="years" ng-model="years" value="2" onchange="calculate();" min="1"></td>
+                <tr>
+                    <td>Ежемесячные комиссии ($):</td>
+                    <td><input type="number" id="commis" ng-model="commis" onchange="calculate();" value="0" min="0"></td>
+                <tr>
+                    <td>Тип платежей:</td>
+                    <td>
+                        <label class="radio-inline">
+                            <input type="radio" name="typepayment" ng-model="payment.type" value="Annu" ng-change="calculateByMonth()">Аннуитетные<br /> <i>(равные выплаты)</i>
+                        </label>
+                    </td>
+                <tr>
+                    <td> 
+                        amount ={{amount}}                        <br />
+                        apr = {{apr}} <br />
+                        years = {{years}} <br />
+                        commis = {{commis}}
+                    </td>
+                    <td>
+                        <label class="radio-inline" style="align-content:flex-start">
+                            <input type="radio" name="typepayment" ng-model="payment.type" value="Diff" ng-change="calculateByMonth()">Дифференцированные<br /> <i>(платежи уменьшаются)</i>
+                        </label>
+                    </td>
                 <tr style="font-size:larger">                    
                     <th>Платежи:</th>
-                    <td><button class="btn-success" onclick="calculate();" ng-click="calculateByMonth()">Расчитать</button></td>
+                    <td><button class="btn-success" onclick="calculate();"  ng-click="calculateByMonth()">Расчитать</button></td> <!-- ng-click="calculateByMonth()"--> <!--"-->
                 </tr>
                 <tr>
                     <td>Ежемесячные платежи:</td>
@@ -143,36 +220,53 @@
                 </tr>
             </table>  
         </div>
-
         <div class="panel">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Платеж</th>
-                        <th></th>
-                        <th>Оплачен</th>
-                    </tr>
-                </thead>
+            <button style="align-content:center" class="btn-danger" ng-click="printDiv('printableArea');">Печать</button>
+            <div id="printable"> 
+                <h3>Кредит {{amount}} на {{years}} года под {{apr}}% <span  ng-show="commisShow">(ежемесячные комиссии ${{commis}})</span></h3>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Месяц</th>
+                            <th>Остаток основного долга</th>
+                            <th>Проценты + комиссии</th>
+                            <th>Выплаты по осн. долгу</th>
+                            <th>Итого: сумма платежа</th>
+                            <th>@</th>
+                            <th>Оплачен</th>
+                        </tr>
+                    </thead>
 
-                <tbody>
-                    <tr ng-repeat="payment in data.payments">
-                        <td>
-                            {{payment.name}}
-                        </td>
-                        <td>
-                            <input type="checkbox" ng-model="payment.passed" />
-                        </td>
-                        <td>
-                            <span style="{{setStyle(payment.passed)}}">
-                                {{showText(payment.passed)}}
-                            </span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            amount = {{amount}} apr = {{apr}} years = {{years}}
+                    <tbody>
+                        <tr ng-repeat="payment in data.payments">
+                            <td>
+                                {{payment.month}}
+                            </td>
+                            <td>
+                                {{payment.amount}}
+                            </td>
+                            <td>
+                                {{payment.perc}}
+                            </td>
+                            <td>
+                                {{payment.main}}
+                            </td>
+                            <td>
+                                {{payment.pay}}
+                            </td>
+                            <td>
+                                <input type="checkbox" ng-model="payment.passed" />
+                            </td>
+                            <td>
+                                <span style="{{setStyle(payment.passed)}}">
+                                    {{showText(payment.passed)}}
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-
     </div>
 
 

@@ -11,13 +11,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   </PropertyGroup>
   <ItemGroup>
     <File Include="ApplicationInsights.config">
-      <publishTime>08/05/2016 15:40:09</publishTime>
+      <publishTime>05/08/2016 15:40:09</publishTime>
     </File>
     <File Include="bin/ApplicationInsights.config">
-      <publishTime>08/05/2016 15:40:09</publishTime>
+      <publishTime>05/08/2016 15:40:09</publishTime>
     </File>
     <File Include="bin/lenapw.dll">
-      <publishTime>08/05/2016 19:38:38</publishTime>
+      <publishTime>08/08/2016 17:57:53</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>07/13/2016 13:18:01</publishTime>
@@ -56,7 +56,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/13/2016 13:18:01</publishTime>
     </File>
     <File Include="calculator.html">
-      <publishTime>08/05/2016 19:37:32</publishTime>
+      <publishTime>08/08/2016 17:56:58</publishTime>
     </File>
     <File Include="css/bootstrap-theme.css">
       <publishTime>07/13/2016 16:46:03</publishTime>
@@ -64,32 +64,35 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="css/bootstrap.css">
       <publishTime>07/13/2016 16:46:02</publishTime>
     </File>
+    <File Include="css/MyStyleSheet.css">
+      <publishTime>08/08/2016 10:29:54</publishTime>
+    </File>
     <File Include="Default.aspx">
-      <publishTime>08/05/2016 15:41:03</publishTime>
+      <publishTime>05/08/2016 15:41:03</publishTime>
     </File>
     <File Include="img/back.jpg">
-      <publishTime>08/05/2016 16:53:34</publishTime>
+      <publishTime>05/08/2016 16:53:34</publishTime>
     </File>
     <File Include="img/valuta.jpg">
-      <publishTime>08/05/2016 17:42:27</publishTime>
+      <publishTime>05/08/2016 17:42:27</publishTime>
     </File>
     <File Include="js/angular.min.js">
       <publishTime>07/13/2016 13:25:17</publishTime>
     </File>
     <File Include="js/calculator.js">
-      <publishTime>08/05/2016 18:47:18</publishTime>
+      <publishTime>08/08/2016 15:28:40</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>08/05/2016 15:40:20</publishTime>
+      <publishTime>05/08/2016 15:40:20</publishTime>
     </File>
     <File Include="scripts/ai.0.22.19-build00125.js">
-      <publishTime>08/05/2016 15:40:09</publishTime>
+      <publishTime>05/08/2016 15:40:09</publishTime>
     </File>
     <File Include="scripts/ai.0.22.19-build00125.min.js">
-      <publishTime>08/05/2016 15:40:09</publishTime>
+      <publishTime>05/08/2016 15:40:09</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>05/08/2016 17:30:52</publishTime>
+      <publishTime>08/05/2016 17:30:52</publishTime>
     </File>
   </ItemGroup>
 </Project>

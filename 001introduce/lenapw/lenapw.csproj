@@ -97,6 +97,7 @@
     <Content Include="calculator.html" />
     <Content Include="css\bootstrap-theme.css" />
     <Content Include="css\bootstrap.css" />
+    <Content Include="css\MyStyleSheet.css" />
     <Content Include="Default.aspx" />
     <Content Include="img\back.jpg" />
     <Content Include="img\valuta.jpg" />

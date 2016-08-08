@@ -61,23 +61,24 @@ function calculate() {
 // properties will still be there when the user visits in the future
 // This storage feature will not work in some browsers (Firefox, e.g.) if you
 // run the example from a local file:// URL.  It does work over HTTP, however.
-function save(amount, apr, years) {
-    if (window.localStorage) {  // Only do this if the browser supports it
-        localStorage.loan_amount = amount;
-        localStorage.loan_apr = apr;
-        localStorage.loan_years = years;      
-    }
-}
 
-// Automatically attempt to restore input fields when the document first loads.
-window.onload = function() {
-    // If the browser supports localStorage and we have some stored data
-    if (window.localStorage && localStorage.loan_amount) {
-        document.getElementById("amount").value = localStorage.loan_amount;
-        document.getElementById("apr").value = localStorage.loan_apr;
-        document.getElementById("years").value = localStorage.loan_years;        
-    }
-};
+//function save(amount, apr, years) {
+//    if (window.localStorage) {  // Only do this if the browser supports it
+//        localStorage.loan_amount = amount;
+//        localStorage.loan_apr = apr;
+//        localStorage.loan_years = years;      
+//    }
+//}
+
+//// Automatically attempt to restore input fields when the document first loads.
+//window.onload = function() {
+//    // If the browser supports localStorage and we have some stored data
+//    if (window.localStorage && localStorage.loan_amount) {
+//        document.getElementById("amount").value = localStorage.loan_amount;
+//        document.getElementById("apr").value = localStorage.loan_apr;
+//        document.getElementById("years").value = localStorage.loan_years;        
+//    }
+//};
 
 // Pass the user's input to a server-side script which can (in theory) return
 // a list of links to local lenders interested in making loans.  This example
