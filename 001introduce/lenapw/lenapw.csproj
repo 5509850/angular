@@ -102,6 +102,7 @@
     <Content Include="img\back.jpg" />
     <Content Include="img\valuta.jpg" />
     <Content Include="js\angular.min.js" />
+    <Content Include="js\calc.js" />
     <Content Include="js\calculator.js" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
