@@ -95,6 +95,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="calculator.html" />
+    <Content Include="css\angularPrint.css" />
     <Content Include="css\bootstrap-theme.css" />
     <Content Include="css\bootstrap.css" />
     <Content Include="css\MyStyleSheet.css" />
@@ -102,6 +103,7 @@
     <Content Include="img\back.jpg" />
     <Content Include="img\valuta.jpg" />
     <Content Include="js\angular.min.js" />
+    <Content Include="js\angularPrint.js" />
     <Content Include="js\calc.js" />
     <Content Include="js\calculator.js" />
     <Content Include="packages.config" />

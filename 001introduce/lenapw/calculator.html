@@ -8,11 +8,14 @@
     <link href="css/bootstrap.css" rel="stylesheet" />
     <link href="css/bootstrap-theme.css" rel="stylesheet" />    
     <script src="js/calc.js"></script>    
+
+    <link media="print" rel="stylesheet" href="css/angularPrint.css">    
+    <script src="js/angularPrint.js"></script>
   
 </head>
 <body style="background:url(img/back.jpg)" ng-controller="CourceListCtrl">    
 
-    <div class="container">
+    <div print-section class="container">
         <div class="page-header">
             <h1 style="color:white">
                 Кредитный калькулятор
@@ -62,7 +65,7 @@
                     <td><button class="btn-success" ng-click="calculateByMonth();" >Расчитать</button></td> <!--onclick="calculate();"-->
                 </tr>
                 <tr>
-                    <td>Ежемесячные платежи:</td>
+                    <td>{{paymentMonth}}</td>
                     <td>$<span class="output" id="payment">{{monthly}}</span></td>
                 </tr>                
                 <tr>
@@ -76,8 +79,8 @@
             </table>  
         </div>
         <div class="panel">
-            <button style="align-content:center" class="btn-danger" ng-click="printDiv('printableArea');">Печать</button>
-            <div id="printable"> 
+            <button print-btn style="align-content:flex-end" class="btn-danger">Печать</button>
+            <div > 
                 <h3>Кредит ${{amountText}} на {{years}} года под {{apr}}% <span  ng-show="commisShow">(ежемесячные комиссии ${{commis}})</span></h3>
                 <table class="table table-hover">
                     <thead>

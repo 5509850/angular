@@ -3,23 +3,25 @@ var model = {
     payments: [{ month: '0 месяц', amount: '$0', perc: '$0', main: '$0', pay: '$0', passed: false, style: 'well', font: 'inherit' }]
 };
 
+
+
 //Модуль
 
-var myApp = angular.module("App", []);
+var myApp = angular.module("App", ["AngularPrint"]);
 
+//var myApp = angular.module("App", ['AngularPrint', '...']);
 //Контоллер      
 myApp.controller("CourceListCtrl", CourceList);
 
 function CourceList($scope) {
-    $scope.data = model;
-    $scope.payment = {
-        type: 'Annu'
-    };
+    $scope.data = model;   
+    $scope.paymentMonth = 'Ежемесячные платежи:';  
 
     var am = parseFloat(localStorage.loan_amount);
     var ap = parseFloat(localStorage.loan_apr);
     var ye = parseFloat(localStorage.loan_years);
     var co = parseFloat(localStorage.loan_commis);
+    var an = parseInt(localStorage.loan_annu);
     if (isNaN(am)) {
         am = 10000;
     }
@@ -32,6 +34,23 @@ function CourceList($scope) {
     if (isNaN(co)) {
         co = 0;
     }
+    if (!isNaN(an)) {
+        if (an == 1)
+            $scope.payment = {
+                type: 'Annu'
+            };
+        else
+        {
+            $scope.payment = {
+                type: 'Diff'
+            };
+        }
+    }
+    else {
+        $scope.payment = {
+            type: 'Annu'
+        };
+    }
     $scope.amount = am;
     $scope.apr = ap;
     $scope.years = ye;
@@ -39,14 +58,15 @@ function CourceList($scope) {
 
     $scope.amountText = $scope.amount.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
 
-    ////обработчик нажатия по кнопке "Печать"          
-    //$scope.printDiv = function (divName) {
-    //    var printContents = document.getElementById(divName).innerHTML;
-    //    var popupWin = window.open('', '_blank', 'width=300,height=300');
-    //    popupWin.document.open();
-    //    popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="style.css" /></head><body onload="window.print()">' + printContents + '</body></html>');
-    //    popupWin.document.close();
-    //}
+    //обработчик нажатия по кнопке "Печать"          
+    $scope.printDiv = function (divName) {
+
+        //var printContents = document.getElementById(divName).innerHTML;
+        //var popupWin = window.open('', '_blank', 'width=300,height=300');
+        //popupWin.document.open();
+        //popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="style.css" /></head><body onload="window.print()">' + printContents + '</body></html>');
+        //popupWin.document.close();
+    }
 
     $scope.clear = function () {
         $scope.data.payments.length = 0; // clear array
@@ -59,8 +79,12 @@ function CourceList($scope) {
 
     //обработчик нажатия по кнопке "Расчитать"  
     $scope.calculateByMonth = function () {
-
-        save($scope.amount, $scope.apr, $scope.years, $scope.commis);
+        var an = 0;
+        if ($scope.payment.type == 'Annu')
+        {
+            an = 1;
+        }
+        save($scope.amount, $scope.apr, $scope.years, $scope.commis, an);
         $scope.commisShow = $scope.commis > 0;
         $scope.data.payments.length = 0; // clear array
 
@@ -69,10 +93,11 @@ function CourceList($scope) {
             var percTotal = 0;
             var mainTotal = 0;
             var monthlyTotal = 0;
+            $scope.paymentMonth = 'Ежемесячные платежи:';
 
             var amountRest = $scope.amount; //остаток основного долга
             var percent = parseFloat(amountRest * interest / 12);
-            var monthly = ($scope.amount * (interest / 12)) / (1 - (1 / Math.pow(1 + (interest / 12), ($scope.years * 12)))) + $scope.commis;
+            var monthly = ($scope.amount * (interest / 12)) / (1 - (1 / Math.pow(1 + (interest / 12), ($scope.years * 12)))) + $scope.commis; // fixed
             $scope.monthly = monthly.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
             var mainloan = monthly - percent - $scope.commis;
 
@@ -116,13 +141,65 @@ function CourceList($scope) {
             });
             $scope.total = monthlyTotal.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
             $scope.percent = percTotal.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+            chart(parseFloat($scope.amount), parseFloat($scope.apr) / 100 / 12, parseFloat(monthly), parseFloat($scope.years) * 12);        
+        }
+        else { //Дифференцированные платежи           --------------------------------------------------------------------------------------        
+            var interest = parseFloat($scope.apr / 100);
+            var percTotal = 0;
+            var mainTotal = 0;
+            var monthlyTotal = 0;
+
+            $scope.paymentMonth = 'Первый платеж:';
+
+            var amountRest = $scope.amount; //остаток основного долга            
+            var mainloan = parseFloat($scope.amount / ($scope.years * 12)); //fixed
+            var percent = parseFloat(amountRest * interest / 12);
+            var monthly = mainloan + percent + $scope.commis;
+
+            $scope.monthly = monthly.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');            
+
+            for (i = 1; i < ($scope.years * 12) + 1; i++) {
+                var mystyle = 'success';
+                if (i % 2 == 0) {
+                    mystyle = 'success';
+                }
+                else {
+                    mystyle = 'warning';
+                }
+                $scope.data.payments.push({
+                    month: i + '-й месяц',
+                    amount: amountRest.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,'),
+                    perc: (percent + $scope.commis).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,'),
+                    main: mainloan.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,'),
+                    pay: monthly.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,'),
+                    passed: false,
+                    style: mystyle,
+                    font: 'inherit'
+                });
+
+                amountRest -= mainloan;
+                mainTotal += mainloan;
+                percTotal += percent + $scope.commis;
+                monthlyTotal += monthly;
+
+                percent = parseFloat(($scope.amount - (i * ($scope.amount / ($scope.years * 12)))) * (interest / 12));
+                monthly = mainloan + percent + $scope.commis;
+            }
+            //Итого:
+            $scope.data.payments.push({
+                month: "ИТОГО:",
+                amount: "0",
+                perc: percTotal.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,'),
+                main: mainTotal.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,'),
+                pay: monthlyTotal.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,'),
+                passed: true,
+                style: 'danger',
+                font: 'large'
+            });
+            $scope.total = monthlyTotal.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+            $scope.percent = percTotal.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
             chart(parseFloat($scope.amount), parseFloat($scope.apr) / 100 / 12, parseFloat(monthly), parseFloat($scope.years) * 12);
-          //  chart(10000, 0.0010, 100, 36);
         }
-        else { //Дифференцированные платежи                   
-
-        }
-
     }
 
     $scope.showText = function (passed) {
@@ -136,12 +213,13 @@ function CourceList($scope) {
     }
 }
 
-function save(amount, apr, years, commis) {
+function save(amount, apr, years, commis, annu) {
     if (window.localStorage) {  // Only do this if the browser supports it
         localStorage.loan_amount = amount;
         localStorage.loan_apr = apr;
         localStorage.loan_years = years;
         localStorage.loan_commis = commis;
+        localStorage.loan_annu = annu;
     }
 }
 
