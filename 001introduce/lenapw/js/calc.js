@@ -21,7 +21,7 @@ function CourceList($scope) {
     var ap = parseFloat(localStorage.loan_apr);
     var ye = parseFloat(localStorage.loan_years);
     var co = parseFloat(localStorage.loan_commis);
-    var an = parseInt(localStorage.loan_annu);
+    var an = (localStorage.loan_annu);
     if (isNaN(am)) {
         am = 10000;
     }
